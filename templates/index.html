@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+  <meta charset="utf-8">
+  <title>Todo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!--style-->
+  <style>
+  .card {
+
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5),
+               0 6px 20px 0 rgba(0,0,0,0.39);
+   background: DarkOrange;
+   margin-bottom : 5%;
+   border-radius: 25px;
+   padding : 2%;
+   overflow: auto;
+   resize: both;
+   text-overflow: ellipsis;
+  }
+  .card:hover{
+    background: lightblue;
+  }
+
+  .submit_form{
+
+    text-align: center;
+    padding: 3%;
+    background: DarkOrange;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4),
+                0 6px 20px 0 rgba(0,0,0,0.36);
+  }
+  </style>
+
+</head>
+
+<body  class="container-fluid">
+
+  <center class="row">
+    <h1><i>Kundalik ishlar</i></h1>
+    <hr />
+  </center>
+
+  <div class="row">
+    
+     <div class="col-md-8">
+      {% for i in todo%}
+      <div class="card">
+        <center><b>{{i.title}}</b></center>
+        <hr/>
+        {{i.time}}
+        <hr/>
+        {{i.desc}}
+        <hr/>
+         {{i.status}}
+        <br />
+        
+        <button class="btn btn-primary" style="float: right; margin-top: 30px; ;"><span class="glyphicon glyphicon-trash"></span>
+          <a href="/delate/{{i.id}}" style="color:white; text-decoration: none;">O'chirish</a></button>
+        <button class="btn btn-primary" style="margin-right: 200px;margin-top: 30px; "><span class="glyphicon glyphicon-edit"></span>
+          <a href="{% url 'update_todo' i.id %}" style="color:white; text-decoration: none;">Taxrirlash</a></button>
+      </div>
+      {%endfor%}
+    </div>
+ 
+     
+   
+    <div class="col-md-1"> </div>
+    <div class="col-md-3" >
+      <div  class="submit_form">
+      <form action="create" method="post" >  {% csrf_token %}
+        <label for="">Title</label><br>
+        <input type="text" name="title" placeholder="Title">
+        <br><label for="">Description</label> <br>
+        <textarea name="desc" id="" placeholder="Enter description"></textarea><br>
+        <input type="date" name="data">
+        <input type="time" name="time"><br> <br>
+        <select name="status" id="" style="width: 200px; height: 30px;">
+          <option value="new">New</option>
+          <option value="progress">In progress</option>
+          <option value="finish">Finish</option>
+        </select> 
+        <center>
+        <br><button type="submit" class="btn btn-default">Topshirish</button>
+      </center>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>

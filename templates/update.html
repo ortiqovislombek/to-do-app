@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Todo Update</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!--style-->
+  <style>
+  .submit_form{
+    text-align: center;
+    padding: 3%;
+    background: DarkOrange;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4),
+                0 6px 20px 0 rgba(0,0,0,0.36);
+    margin-top: 50px;
+  }
+  </style>
+</head>
+
+<body class="container-fluid">
+
+  <center class="row">
+    <h1><i>Todo yangilash</i></h1>
+    <hr />
+  </center>
+
+  <div class="row">
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6">
+      <div class="submit_form">
+        <form action="" method="post">
+          {% csrf_token %}
+          <label for="">Title</label><br>
+          <input type="text" name="title" value="{{todo.title}}" placeholder="Title">
+          
+          <br><label for="">Description</label><br>
+          <textarea name="desc" placeholder="Enter description">{{todo.desc}}</textarea><br>
+          
+          <input type="date" name="data" value="{{todo.data|date:'Y-m-d'}}">
+          <input type="time" name="time" value="{{todo.time|time:'H:i'}}"><br><br>
+          
+          <select name="status" style="width: 200px; height: 30px;">
+            <option value="new" {% if todo.status == 'new' %}selected{% endif %}>New</option>
+            <option value="progress" {% if todo.status == 'progress' %}selected{% endif %}>In progress</option>
+            <option value="finish" {% if todo.status == 'finish' %}selected{% endif %}>Finish</option>
+          </select>
+          
+          <center>
+            <br><button type="submit" class="btn btn-primary">Saqlash</button>
+            <a href="/" class="btn btn-default">Bekor qilish</a>
+          </center>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-3"></div>
+  </div>
+
+</body>
+</html>
